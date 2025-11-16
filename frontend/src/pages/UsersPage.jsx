@@ -1,0 +1,51 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function UsersPage() {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const token = localStorage.getItem("token"); // admin token
+                const res = await axios.get("http://localhost:5000/api/admin/users", {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setUsers(res.data);
+            } catch (err) {
+                console.error("AxiosError", err);
+            }
+        };
+        fetchUsers();
+    }, []);
+
+    return (
+        <div className="min-h-screen bg-green-50 p-6">
+            <h1 className="text-3xl font-bold text-green-800 mb-6 text-center">All Users</h1>
+            <div className="max-w-5xl mx-auto overflow-x-auto">
+                <table className="min-w-full bg-white shadow-md rounded-2xl overflow-hidden">
+                    <thead className="bg-green-700 text-white">
+                        <tr>
+                            <th className="px-4 py-2">#</th>
+                            <th className="px-4 py-2">Username</th>
+                            <th className="px-4 py-2">Email</th>
+                            <th className="px-4 py-2">Role</th>
+                            <th className="px-4 py-2">Registered At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((u, idx) => (
+                            <tr key={u._id} className="text-green-800 border-b hover:bg-green-100 transition">
+                                <td className="px-4 py-2">{idx + 1}</td>
+                                <td className="px-4 py-2">{u.username}</td>
+                                <td className="px-4 py-2">{u.email}</td>
+                                <td className="px-4 py-2">{u.role}</td>
+                                <td className="px-4 py-2">{new Date(u.createdAt).toLocaleString()}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
