@@ -35,7 +35,7 @@ export default function PickerDashboard() {
 
         const fetchData = async () => {
             try {
-                const resPicker = await axios.get("${API_BASE_URL}/auth/me", {
+                const resPicker = await axios.get(`${API_BASE_URL}/auth/me`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setPicker(resPicker.data);

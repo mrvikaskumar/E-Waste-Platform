@@ -17,12 +17,12 @@ export default function UserDashboard() {
 
         const fetchData = async () => {
             try {
-                const resUser = await axios.get("${API_BASE_URL}/auth/me", {
+                const resUser = await axios.get(`${API_BASE_URL}/auth/me`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUser(resUser.data);
 
-                const resPickups = await axios.get("${API_BASE_URL}/pickups/user", {
+                const resPickups = await axios.get(`${API_BASE_URL}/pickups/user`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPickups(resPickups.data);

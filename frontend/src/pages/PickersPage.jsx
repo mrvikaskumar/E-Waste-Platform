@@ -9,7 +9,7 @@ export default function PickersPage() {
         const fetchPickers = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("${API_BASE_URL}/admin/pickers", {
+                const res = await axios.get(`${API_BASE_URL}/admin/pickers`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setPickers(res.data);

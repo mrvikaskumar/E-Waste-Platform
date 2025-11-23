@@ -9,7 +9,7 @@ export default function PickupsPage() {
         const fetchPickups = async () => {
             try {
                 const token = localStorage.getItem("token"); // admin token
-                const res = await axios.get("${API_BASE_URL}/admin/pickups", {
+                const res = await axios.get(`${API_BASE_URL}/admin/pickups`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPickups(res.data);

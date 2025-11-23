@@ -9,7 +9,7 @@ export default function UsersPage() {
         const fetchUsers = async () => {
             try {
                 const token = localStorage.getItem("token"); // admin token
-                const res = await axios.get("${API_BASE_URL}/admin/users", {
+                const res = await axios.get(`${API_BASE_URL}/admin/users`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUsers(res.data);
