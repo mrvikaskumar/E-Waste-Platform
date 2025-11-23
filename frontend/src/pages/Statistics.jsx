@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { API_BASE_URL } from "../config";
 
 export default function Statistics() {
     const stats = [

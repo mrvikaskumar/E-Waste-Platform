@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 export default function PickersPage() {
     const [pickers, setPickers] = useState([]);
@@ -8,7 +9,7 @@ export default function PickersPage() {
         const fetchPickers = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("http://localhost:5000/api/admin/pickers", {
+                const res = await axios.get("${API_BASE_URL}/admin/pickers", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setPickers(res.data);

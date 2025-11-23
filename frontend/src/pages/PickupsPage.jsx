@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 export default function PickupsPage() {
     const [pickups, setPickups] = useState([]);
@@ -8,7 +9,7 @@ export default function PickupsPage() {
         const fetchPickups = async () => {
             try {
                 const token = localStorage.getItem("token"); // admin token
-                const res = await axios.get("http://localhost:5000/api/admin/pickups", {
+                const res = await axios.get("${API_BASE_URL}/admin/pickups", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPickups(res.data);

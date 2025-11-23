@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
+import { API_BASE_URL } from "../config";
+
 import {
     Chart as ChartJS,
     ArcElement,
@@ -33,7 +35,7 @@ export default function PickerDashboard() {
 
         const fetchData = async () => {
             try {
-                const resPicker = await axios.get("http://localhost:5000/api/auth/me", {
+                const resPicker = await axios.get("${API_BASE_URL}/auth/me", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setPicker(resPicker.data);

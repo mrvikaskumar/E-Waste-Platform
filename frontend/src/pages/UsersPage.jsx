@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 export default function UsersPage() {
     const [users, setUsers] = useState([]);
@@ -8,7 +9,7 @@ export default function UsersPage() {
         const fetchUsers = async () => {
             try {
                 const token = localStorage.getItem("token"); // admin token
-                const res = await axios.get("http://localhost:5000/api/admin/users", {
+                const res = await axios.get("${API_BASE_URL}/admin/users", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUsers(res.data);

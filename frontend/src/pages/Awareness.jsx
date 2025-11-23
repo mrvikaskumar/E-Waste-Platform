@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { API_BASE_URL } from "../config";
 
 const TIPS = [
     { title: "Why E-Waste Matters", description: "E-waste contains hazardous materials like lead and mercury. Proper disposal prevents environmental contamination." },

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config"; // <-- IMPORT ADDED
 
 export default function ContactsPage() {
     const [contacts, setContacts] = useState([]);
@@ -8,7 +9,7 @@ export default function ContactsPage() {
         const fetchContacts = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("http://localhost:5000/api/admin/contacts", {
+                const res = await axios.get("${API_BASE_URL}/admin/contacts", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setContacts(res.data);

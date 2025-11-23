@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 export default function UserDashboard() {
     const [user, setUser] = useState(null);
@@ -16,12 +17,12 @@ export default function UserDashboard() {
 
         const fetchData = async () => {
             try {
-                const resUser = await axios.get("http://localhost:5000/api/auth/me", {
+                const resUser = await axios.get("${API_BASE_URL}/auth/me", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUser(resUser.data);
 
-                const resPickups = await axios.get("http://localhost:5000/api/pickups/user", {
+                const resPickups = await axios.get("${API_BASE_URL}/pickups/user", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPickups(resPickups.data);
