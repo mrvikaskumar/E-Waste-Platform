@@ -14,7 +14,7 @@ export default function Login({ setRole }) {
         setError("");
 
         try {
-            const res = await axios.post("${API_BASE_URL}/auth/login", {
+            const res = await axios.post(`${API_BASE_URL}/auth/login`, {
                 email,
                 password,
             });
