@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  // ⬇️ CRITICAL FIX: Add this line to ensure asset paths are built from the root (/) ⬇️
   "homepage": "/",
   "scripts": {
     "dev": "vite",
