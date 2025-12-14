@@ -24,25 +24,26 @@ const PORT = process.env.PORT || 5000;
 // 2. The deployed URL (for production)
 const allowedOrigins = [
     'http://localhost:5173',
-    // You should add your deployed frontend URL here when available, 
-    // e.g., 'https://e-waste-frontend-app.vercel.app'
+    // ⬇️ **CRITICAL CHANGE: ADD YOUR VEREL DOMAIN HERE** ⬇️
+    'https://e-waste-platform.vercel.app',
 ];
 
 const corsOptions = {
-    // This allows localhost requests to your deployed Vercel API, 
-    // AND handles the preflight OPTIONS request correctly.
+    // This function checks if the requesting origin is in our allowedOrigins array
     origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps or curl) 
         // AND origins in our allowed list
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            // Log the error for debugging purposes
+            console.error(`CORS Blocked: Origin ${origin} not in allowed list.`);
             callback(new Error('Not allowed by CORS'));
         }
     },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // IMPORTANT for sending cookies/tokens
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200 // Handles the preflight OPTIONS request correctly
 };
 
 // Middleware
