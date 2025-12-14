@@ -16,27 +16,34 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // =========================================================
-// 🔄 CORS Configuration for Localhost and Production
+// 🔄 CORS Configuration for Localhost and Production (Final Fix)
 // =========================================================
 
-// Allowed origins:
-// 1. http://localhost:5173 - Your frontend dev server
-// 2. The deployed URL (for production)
+// Allowed origins list, including the Vercel RegEx pattern:
 const allowedOrigins = [
     'http://localhost:5173',
-    // ⬇️ **CRITICAL CHANGE: ADD YOUR VEREL DOMAIN HERE** ⬇️
-    'https://e-waste-platform.vercel.app',
+    'https://e-waste-platform.vercel.app', // Main production URL
+    /https:\/\/(.*)\.vercel\.app$/,      // CRITICAL: Allows all Vercel preview/subdomains
 ];
 
 const corsOptions = {
-    // This function checks if the requesting origin is in our allowedOrigins array
+    // This custom function handles both strings and the RegEx pattern
     origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl) 
-        // AND origins in our allowed list
-        if (!origin || allowedOrigins.includes(origin)) {
+        // Allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin) return callback(null, true);
+
+        // Check if the origin matches any of the patterns in the allowed list
+        const isAllowed = allowedOrigins.some(pattern => {
+            if (typeof pattern === 'string') {
+                return pattern === origin; // Check for exact match
+            } else {
+                return pattern.test(origin); // Check if RegEx matches
+            }
+        });
+
+        if (isAllowed) {
             callback(null, true);
         } else {
-            // Log the error for debugging purposes
             console.error(`CORS Blocked: Origin ${origin} not in allowed list.`);
             callback(new Error('Not allowed by CORS'));
         }
